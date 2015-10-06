@@ -2,11 +2,13 @@
 
 ## About
 
-This is a Ruby on Rails application with Cassandra back-end to store and show temperature measurements. It has an API for storing the measurements.
+This is a Ruby on Rails application with Cassandra back-end to store and show temperature measurements. You can use latest Cassandra with this. 
+
+The application has an API for storing the measurements.
 
 ## Installation
 
-Currently you need to install the database schema manually.
+Currently you need to install the Cassandra database schema manually.
 
 It is in the file **db/schema.cql**.
 
