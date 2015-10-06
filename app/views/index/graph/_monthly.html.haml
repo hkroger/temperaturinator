@@ -1,0 +1,33 @@
+$(function() {
+new Highcharts.Chart({
+chart: {
+renderTo: "graph",
+type: 'column'
+},
+\#{render 'index/graph/common_options'}
+series: [
+- if @locations.length > 1
+  - @locations.each do |loc|
+    {
+    name: '#{escape_javascript(loc.description.capitalize)}',
+    data: #{loc.monthly_averages(@datatime).inspect}
+    }#{@locations.last == loc ? "" : ","}
+- else
+  - loc = @locations.first
+  - minmax = loc ? loc.monthly_min_max(@datatime) : {:min => [], :max => []}
+  - averages = loc ? loc.monthly_averages(@datatime) : []
+  {
+  name: 'Max',
+  data: #{minmax[:max].inspect}
+  },
+  {
+  name: 'Avg',
+  data: #{averages.inspect}
+  },
+  {
+  name: 'Min',
+  data: #{minmax[:min].inspect}
+  }
+]
+});
+});

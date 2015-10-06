@@ -1,0 +1,43 @@
+%h2
+  Edit Profile
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+  = devise_error_messages!
+  %div
+    = f.label :email
+    %br/
+    = f.email_field :email, :autofocus => true
+  %div
+    = f.label :default_client_id
+    %br/
+    = f.select :default_client_id, Hash[Client.all.map{|c| [c.name, c.id]}]
+  %div
+    = f.label :pushover
+    %br/
+    = f.text_field :pushover
+  %div
+    = f.label :problem_report_method
+    %br/
+    = f.select :problem_report_method, ['pushover','email']
+  %div
+    = f.label :reading_error_interval
+    %br/
+    = f.text_field :reading_error_interval
+  %div
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+    %br/
+    = f.password_field :password, :autocomplete => "off"
+  %div
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation
+  %div
+    = f.label :current_password
+    %i (we need your current password to confirm your changes)
+    %br/
+    = f.password_field :current_password
+  %div= f.submit "Update"
+%h3 Cancel my account
+%p
+  #{button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}
+= link_to "Back", :back

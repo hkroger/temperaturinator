@@ -1,0 +1,44 @@
+%h2 Users
+
+%div.actions
+  = link_to url_for(:new_registered_user) do
+    %i.fa.fa-plus
+    New user
+
+%table
+  %th Username
+  %th Name
+  %th Email
+  %th Pushover
+  %th Reports via
+  %th Created at
+  %th Is admin?
+  %th Actions
+  - @users.each do |user|
+    - admin_links = []
+    - admin_links <<= link_to('edit',{:action => :edit, :id => user.username})
+    - admin_links <<= link_to('delete', {:action => :destroy, :id => user.username}, :method=>:delete, :confirm=>'Are you sure?') unless user.deleted_at
+    %tr
+      %td
+        - if user.admin? and not user.deleted_at
+          %i.fa.fa-bolt
+        - if user.deleted_at
+          %i.fa.fa-ban
+        = user.username
+      %td= user.name
+      %td= user.email
+      %td
+        - if !!(user.pushover if user.pushover && !user.pushover.blank?)
+          %i.fa.fa-check-square-o
+        - else
+          %i.fa.fa-square-o
+      %td= user.problem_report_method
+      %td
+        %span{:title=>user.created_at}
+          =user.created_at.strftime("%Y-%m-%d")
+      %td
+        - if user.admin?
+          %i.fa.fa-check-square-o
+        - else
+          %i.fa.fa-square-o
+      %td= raw admin_links.join(" | ")

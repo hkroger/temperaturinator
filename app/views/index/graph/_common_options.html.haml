@@ -1,0 +1,48 @@
+tooltip: {
+\#{'shared: true,' if @locations.length == 1}
+valueSuffix: '°C'
+},
+plotOptions : {
+line: {
+marker: {
+enabled: false
+},
+animation: false,
+lineWidth: 1,
+},
+area: {
+lineWidth: 1,
+marker: {
+enabled: false
+},
+shadow: false,
+states: {
+hover: {
+lineWidth: 1
+}
+},
+threshold: null
+},
+column: {
+pointPadding: 0,
+borderWidth: 0,
+groupPadding: 0,
+shadow: false
+}
+},
+title: {
+text: "Temperatures"
+},
+xAxis: {
+type: "datetime"
+},
+yAxis: {
+title: {
+text: "Temperature"
+},
+labels: {
+formatter: function() {
+return this.value + ' °C';
+}
+}
+},

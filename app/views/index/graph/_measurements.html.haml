@@ -1,0 +1,16 @@
+$(function() {
+new Highcharts.Chart({
+chart: {
+renderTo: "graph",
+type: '#{@locations.length > 1 ? 'line' : 'area'}'
+},
+\#{render 'index/graph/common_options'}
+series: [
+- @locations.each do |loc|
+  {
+  name: '#{escape_javascript(loc.description.capitalize)}',
+  data: #{loc.datapoints(@datatime).inspect}
+  }#{@locations.last == loc ? "" : ","}
+]
+});
+});

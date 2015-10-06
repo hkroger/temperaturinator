@@ -1,0 +1,138 @@
+%h2 Logs
+
+= form_tag("",:method=>:get)
+= select_tag :location, group_locations_for_select(@location.id)
+.first
+  From: 
+.second
+  = text_field_tag(:from_date, @from_date, :class => "from_date date")
+.second
+  To: 
+.second
+  = text_field_tag(:to_date, @to_date, :class => "to_date date")
+%br
+:javascript
+  function toggle_content($toggler) {
+      var $content = $('.min_max_list')
+      var $linkText = $toggler.text().trim().toUpperCase();    
+      
+      if($linkText === "SHOW MORE"){
+        $linkText = "Show less";
+        $content.switchClass("hide_content", "show_content", 400);
+      } else {
+        $linkText = "Show more";
+        $content.switchClass("show_content", "hide_content", 400);
+      };
+
+      $(".toggler a").text($linkText);
+  }
+
+  $(function() { 
+    $( ".date" ).datepicker({ dateFormat: "yy-mm-dd", maxDate: '0' });
+    $( ".date" ).datepicker( "option", "dateFormat", "yy-mm-dd" ); 
+    $( ".date" ).datepicker( "option", "firstDay", "1" );
+
+    $(".toggler a").on("click", function() { toggle_content($(this)); });
+  });
+= submit_tag('Search')
+= submit_tag('Load CSV')
+
+- temp_format = "%.2f"
+- if @log_entries.length > 0
+  %table.logs
+    %tr
+      %th
+        First measurement at
+      %th
+        Last measurement at
+      %th
+        Min (°C)
+      %th
+        Min at
+      %th
+        Max (°C)
+      %th
+        Max at
+      %th
+        Measurement count
+      %th
+        Avg interval
+    %tr
+      %td
+        = format_time_and_date(first = @log_entries.first.timestamp)
+      %td
+        = format_time_and_date(last = @log_entries.last.timestamp)
+      %td
+        - min_temp = @log_entries.map{|dp| dp.measurement}.min
+        = temp_format % min_temp
+      %td
+        - min_ats = @log_entries.select{|dp| dp.measurement == min_temp }
+        .min_max_list.hide_content
+          - min_ats.each do |min_at|
+            = format_time_and_date(min_at.timestamp)
+            %br
+        - if min_ats.length > 3
+          .toggler
+            %a(href='#')
+              Show more
+      </div>
+      %td
+        - max_temp = @log_entries.map{|dp| dp.measurement}.max
+        = temp_format % max_temp
+      %td
+        - max_ats = @log_entries.select{|dp| dp.measurement == max_temp }
+        .min_max_list.hide_content
+          - max_ats.each do |max_at|
+            = format_time_and_date(max_at.timestamp)
+            %br
+        - if max_ats.length > 3
+          .toggler
+            %a(href='#')
+              Show more
+      %td
+        = @log_entries.length
+      %td
+        - avg_interval = 0
+        - if @log_entries.length && @log_entries.length > 0 
+          = diff_time_only(avg_interval = ((last-first) /  @log_entries.length))
+
+  %table.logs
+    %tr
+      %th
+        Time
+      %th
+        Interval (sec)
+      %th
+        Measurement (°C)
+      %th
+        Voltage (V)
+      %th
+        Signal strength (Dbm)
+    - last = nil
+    - @log_entries.each do |dp|
+      %tr
+        %td
+          - time = dp.timestamp
+          = format_time_and_date(time)
+        %td
+          - if last
+            - interval = time.localtime-last.localtime
+            - if (avg_interval > 0) && (interval.to_f / avg_interval < 0.9)
+              .low_interval
+                = diff_time_only(interval)
+            - elsif (avg_interval > 0) && (interval.to_f / avg_interval > 1.1)
+              .high_interval
+                = diff_time_only(interval)
+            - else
+              = diff_time_only(interval)
+
+          - last = time
+        %td
+          = temp_format % dp.measurement if dp.measurement
+        %td
+          = dp.voltage
+        %td
+          = dp.signal_strength
+- else
+  %p
+    Nothing was found

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  alarm_id: 1
+  pushover: false
+  pushover_key: MyString
+  email: false
+  email_key: MyString
+
+two:
+  alarm_id: 1
+  pushover: false
+  pushover_key: MyString
+  email: false
+  email_key: MyString

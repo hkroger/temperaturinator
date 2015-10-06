@@ -1,0 +1,11 @@
+tmp
+db/*.sqlite3
+log/*.log
+public/assets
+.*swp
+._*
+.sass-cache
+.DS_Store
+.bundle
+.idea
+web.iml

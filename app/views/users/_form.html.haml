@@ -1,0 +1,50 @@
+= form_tag(url_for(:registered_users), :method => :post)
+- if @user.username
+  .field
+    .label
+      = label_tag :username
+    = @user.username
+  = hidden_field_tag :id, @user.username
+- else
+  .field
+    .label
+      = label_tag :username
+    = text_field_tag :username, @user.username
+
+.field
+  .label
+    = label_tag :name
+  = text_field_tag :name, @user.name
+.field
+  .label
+    = label_tag :default_client_id
+  = select_tag :default_client_id,  options_for_select(Hash[Client.all.map{|c| [c.name, c.id]}], @user.default_client_id)
+.field
+  .label
+    = label_tag :email
+  = text_field_tag :email, @user.email
+.field
+  .label
+    = label_tag :pushover
+  = text_field_tag :pushover, @user.pushover
+.field
+  .label
+    = label_tag :problem_report_method
+  = select_tag :problem_report_method, options_for_select([ "pushover", "email" ], @user.problem_report_method)
+.field
+  .label
+    = label_tag :reading_error_interval
+  = text_field_tag :reading_error_interval, @user.reading_error_interval
+.field
+  .label
+    = label_tag :deleted_at
+  = text_field_tag :deleted_at, @user.deleted_at
+.field
+  .label
+    = label_tag :is_admin
+  = check_box_tag :is_admin, 1, @user.is_admin.present?
+
+
+= submit_tag "Save"
+.back
+  = link_to 'Back', url_for(:registered_users)

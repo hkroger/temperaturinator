@@ -1,0 +1,15 @@
+= form_tag(url_for(:clients), :method => :post)
+.field
+  .label
+    = label_tag :name
+  = text_field_tag :name, @client.name
+- if @client.id
+  .field
+    .label
+      = label_tag :user
+    = text_field_tag :user, @client.user
+= hidden_field_tag :id, @client.id
+
+= submit_tag "Save"
+.back
+  = link_to 'Back', url_for(:clients)

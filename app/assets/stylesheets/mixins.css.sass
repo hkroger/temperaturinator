@@ -1,0 +1,38 @@
+@mixin clear
+  *zoom: 1
+  &:before, &:after
+    content: ''
+    display: table
+  &:after
+    clear: both
+
+@mixin borderbox
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+@mixin box-shadow($args)
+  -webkit-box-shadow: $args
+  -moz-box-shadow: $args
+  box-shadow: $args
+
+@mixin shade-box
+  background: rgba(255,255,255,0.4)
+  background: -moz-linear-gradient(top, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0.4)), color-stop(100%, rgba(255,255,255,0.2)))
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)
+  background: -o-linear-gradient(top, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)
+  background: -ms-linear-gradient(top, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 )
+  +box-shadow(1px 1px 6px rgba(0,0,0,0.2))
+
+@mixin fa-icon-jee($content)
+  display: inline-block
+  font-family: FontAwesome
+  font-style: normal
+  font-weight: normal
+  line-height: 1
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  content: $content

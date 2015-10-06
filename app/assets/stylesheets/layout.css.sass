@@ -1,0 +1,80 @@
+body
+  w
+  background: image-url('squairy_light.png') repeat #f0f0f0
+ 
+.red
+  color: #f00
+
+.stripe
+  +borderbox
+  width: 100%
+  &.graph, &.content
+    background: white
+    +box-shadow(0 0 20px rgba(0,0,0,0.2))
+
+  .box
+    +borderbox
+    +clear
+    padding: 1em 1em
+    max-width: 1020px
+    margin: 0 auto
+
+#header
+  +clear
+  #title
+    float: left
+  .nav-wrapper
+    +clear
+  nav#user
+    float: right
+    padding: 0.5em 1em
+  nav#main
+    float: left
+    ul
+      +clear
+      li
+        float: left
+        a
+          display: block
+          text-decoration: none
+          font-size: 120%
+          padding: 0.5em 1em
+          border-left: 1px solid rgba(0,0,0,0.1)
+          transition: color 0.15s, background 0.15s
+          &:hover
+            background: rgba(255,255,255,0.4)
+            color: black
+        &:first-child a
+          border-left: 0
+        &.simple-navigation-active-leaf a
+          background: rgba(0,0,0,0.03)
+        &#alarms a:before
+          +fa-icon-jee("\f0a2\00a0")
+        &#settings a:before
+          +fa-icon-jee("\f013\00a0")
+        &#registered_users a:before
+          +fa-icon-jee("\f013\00a0")
+        &#users a:before
+          +fa-icon-jee("\f007\00a0")
+        &#locations a:before
+          +fa-icon-jee("\f124\00a0")
+        &#clients a:before
+          +fa-icon-jee("\f012\00a0")
+        &#measurements a:before
+          +fa-icon-jee("\f080\00a0")
+        &#logout a:before
+          +fa-icon-jee("\f08b\00a0")
+    .subnav
+      li 
+        font-size: 70%
+        &#index a:before
+          +fa-icon-jee("\f1fe\00a0")
+        &#overview a:before
+          +fa-icon-jee("\f0c9\00a0")
+        &#logs a:before
+          +fa-icon-jee("\f022\00a0")
+
+.ui-datepicker
+  .ui-state-default
+    background: none !important
+    border: 0px !important

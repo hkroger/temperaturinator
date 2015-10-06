@@ -1,0 +1,36 @@
+= form_tag(url_for(:locations), :method => :post)
+-unless @location.id
+  .field
+    .label
+      = label_tag :id
+    = text_field_tag :id, @location.id
+.field
+  .label
+    = label_tag :client_id
+  = select_tag :client_id, options_from_collection_for_select(Client.all, "id", "name", @location.client_id)
+-if @location.id
+  .field
+    .label
+      = label_tag :username
+    = text_field_tag :username, @location.username
+  = hidden_field_tag :old_id, @location.id
+.field
+  .label
+    = label_tag :name
+  = text_field_tag :name, @location.description
+.field
+  .label
+    = label_tag :sensor_list
+  = text_field_tag :sensor_list, @location.sensor_list
+.field
+  .label
+    = label_tag :do_not_alarm
+  = check_box_tag :do_not_alarm, 1, @location.do_not_alarm.present?
+.field
+  .label
+    = label_tag :do_not_show
+  = check_box_tag :do_not_show, 1, @location.do_not_show.present?
+
+= submit_tag "Save"
+.back
+  = link_to 'Back', url_for(:locations)

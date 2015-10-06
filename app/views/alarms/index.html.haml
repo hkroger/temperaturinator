@@ -1,0 +1,60 @@
+%h2 Alarms
+
+%div.actions
+  = link_to url_for(:new_alarm) do
+    %i.fa.fa-plus
+    New alarm
+
+- @alarms.map{|a| a.location.client_id}.uniq.each do |client_id|
+  - client = Client.find_by_id(client_id)
+  %h3 
+    = client.name.capitalize
+    = link_to('(logs)', {:controller => 'alarms', :action=>'logs', :client => client_id})
+  %table
+    %th Location
+    %th Threshold
+    %th Hysteresis
+    %th Alarm when
+    %th Recovery notification
+    %th Pushover
+    %th Email
+    %th Total subscribers
+    %th Owner
+    %th Actions
+    - @alarms.select{ |a| a.location.client_id == client_id }.each do |alarm|
+      - is_owner = alarm.owner == current_user.username || current_user.admin?
+      - pushover = alarm.pushover?(current_user)
+      - email = alarm.email?(current_user)
+      - admin_links = []
+      - admin_links <<= link_to('edit',{:action => :edit, :id => alarm.id, :location_id => alarm.location_id }) if is_owner
+      - admin_links <<= link_to('delete', {:action => :destroy, :id => alarm.id, :location_id => alarm.location_id}, :method=>:delete, :confirm=>'Are you sure?') if is_owner
+      - admin_links <<= link_to('logs',{:action => :logs, :id => alarm.id }) if is_owner
+      %tr
+        %td= link_to(alarm.location.try(:description).try(:capitalize), {:controller=>'index', :action=>'show', :location => alarm.location.try(:id) })
+        %td
+          = alarm.temperature
+          °C
+        %td
+          = alarm.hysteresis
+          °C
+        %td= alarm.alarm_when_warmer ? 'warmer' : 'colder'
+        %td
+          - if alarm.two_way_alarm
+            %i.fa.fa-check-square-o
+          - else
+            %i.fa.fa-square-o
+        %td
+          %a{:href => url_for({:action => :toggle, :value => !pushover, :id => alarm.id, :notification => :pushover})}
+            - if pushover
+              %i.fa.fa-check-circle-o
+            - else
+              %i.fa.fa-circle-o
+        %td
+          %a{:href => url_for({:action => :toggle, :value => !email, :id => alarm.id, :notification => :email})}
+            - if email
+              %i.fa.fa-check-circle-o
+            - else
+              %i.fa.fa-circle-o
+        %td= alarm.alarm_notifications.length
+        %td= alarm.owner
+        %td= raw admin_links.join(" | ")

@@ -1,0 +1,44 @@
+!!!
+%html
+  %head
+    %title Temperaturinator
+    = favicon_link_tag '/favicon.png'
+    = favicon_link_tag '/favicon.png', rel: 'apple-touch-icon', type: 'image/png'
+    = stylesheet_link_tag    "application", "//fonts.googleapis.com/css?family=Lato:300"
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application", "highcharts.js"
+    = csrf_meta_tags
+  %body
+    #wrapper
+      .stripe.header
+        #header.box
+          - flash.each do |key, value|
+            :javascript
+              (function() {$.growl.#{key}({ message: "#{value}"});})()
+          #title
+            = link_to( url_for({:controller => "/index", :action => :show, :location => 'All'})) do 
+              %h1 Temperaturinator
+          .nav-wrapper
+            %nav#user
+              - if respond_to?(:user_signed_in?) && user_signed_in?
+                %i.fa.fa-user
+                #{current_user.username}
+                | 
+                = link_to("Log out", destroy_user_session_path, :method => :delete)
+              - else
+                = link_to("Log in", new_user_session_path)
+                | 
+                \#{link_to("Register", new_user_registration_path)}
+          .nav-wrapper
+            -# if respond_to?(:user_signed_in?) && user_signed_in?
+            %nav#main
+              = render_navigation(:level => 1)
+              .subnav
+                = render_navigation(:level => 2)
+
+      .stripe.content
+        #content.box
+          = yield
+
+      -#.stripe.footer
+        #footer.box

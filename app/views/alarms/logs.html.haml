@@ -1,0 +1,24 @@
+%h2 Alarm Logs
+
+%table
+  %th Time
+  %th Client
+  %th Location
+  %th Alarm
+  %th Measurement
+  %th Message
+  - @logs.each do |log|
+    %tr
+      %td 
+        = log.id.to_time
+      %td 
+        = Client.find_by_id(log.client_id).name
+      %td 
+        = log.location_id
+      %td 
+        = link_to('edit',{:action => :edit, :id => log.alarm_id, :location_id => log.location_id })
+      %td 
+        = log.measurement
+        °C
+      %td 
+        = log.message

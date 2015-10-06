@@ -1,0 +1,32 @@
+= form_tag(url_for(:alarms), :method => :post)
+.field
+  .label
+    = label_tag :location
+  = select_tag :location, group_locations_for_select(@alarm.location_id)
+.field
+  .label
+    = label_tag :threshold
+  = text_field_tag :threshold, @alarm.temperature
+.field
+  .label
+    = label_tag :hysteresis
+  = text_field_tag :hysteresis, @alarm.hysteresis
+.field
+  Alarm when
+.field
+  .label
+    = label_tag :alarm_when_warmer_0, 'colder'
+  = radio_button_tag :alarm_when_warmer, 0, !@alarm.alarm_when_warmer.present?
+.field
+  .label
+    = label_tag :alarm_when_warmer_1, 'warmer'
+  = radio_button_tag :alarm_when_warmer, 1, @alarm.alarm_when_warmer.present?
+.field
+  .label
+    = label_tag :two_way_alarm, 'Recovery notification'
+  = check_box_tag :two_way_alarm, 1, @alarm.two_way_alarm.present?
+  = hidden_field_tag :id, @alarm.id
+
+= submit_tag "Save"
+.back
+  = link_to 'Back', url_for(:alarms)

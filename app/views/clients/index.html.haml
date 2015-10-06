@@ -1,0 +1,24 @@
+%h2 Clients
+
+%div.actions
+  = link_to url_for(:new_client) do
+    %i.fa.fa-plus
+    New client
+
+%table
+  %th Name
+  %th Id
+  %th Signing Key
+  %th Owner
+  %th Action
+  - @clients.each do |client|
+    - is_owner = client.user == current_user.username || current_user.admin?
+    - admin_links = []
+    - admin_links <<= link_to('edit',{:action => :edit, :id => client.id}) if is_owner
+    - admin_links <<= link_to('delete', {:action => :destroy, :id => client.id}, :method=>:delete, :confirm=>'Are you sure?') if is_owner
+    %tr
+      %td= client.name
+      %td= client.id
+      %td= client.signing_key if is_owner or current_user.admin?
+      %td= client.user
+      %td= raw admin_links.join(" | ")

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  location_id: 1
+  temperature: 1.5
+  alarm_when_warmer: false
+  two_way_alarm: false
+  alarmed: false
+
+two:
+  location_id: 1
+  temperature: 1.5
+  alarm_when_warmer: false
+  two_way_alarm: false
+  alarmed: false

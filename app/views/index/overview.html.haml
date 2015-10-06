@@ -1,0 +1,6 @@
+.box
+  = form_tag("",:method=>:get)
+  = select_tag(:client, options_for_select( Client.all.map { |c| [c.name.capitalize,c.id]},@client.id), :onchange => 'this.form.submit();')
+
+  #locations.box
+    = render @locations

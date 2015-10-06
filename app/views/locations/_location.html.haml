@@ -1,0 +1,21 @@
+- m = location.last_measurement
+=link_to(controller: :index, action: :show, location: location.id) do
+  .location
+    .name
+      = location.description.capitalize
+    .measurement(title="#{m.try(:last_read_at).try(:to_s,:db)}")
+      = m ? number_with_precision(m.current, :precision=>1) : '-'
+      \&deg;C
+
+    .max-min
+      .max(title="#{m ? m['max_at'].to_s(:db) : '-'}")
+        Max #{number_with_precision(m.try(:max), :precision=>1)} &deg;C
+      .min(title="#{m ? m['min_at'].to_s(:db) : '-'}")
+        Min #{number_with_precision(m.try(:min), :precision=>1)} &deg;C
+
+    - if m.nil?
+      .red Never measured
+    - elsif m['last_read_at'] < 20.minutes.ago
+      .red Stale data: #{m['last_read_at'].to_s(:db)}
+    - else
+      &nbsp;
