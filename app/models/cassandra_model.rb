@@ -206,6 +206,6 @@ class CassandraModel
   end
 
   def gen_timeuuid
-    Cassandra::TimeUuid::Generator.new.next
+    Cassandra::TimeUuid::Generator.new.now
   end
 end

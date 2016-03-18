@@ -6,7 +6,7 @@ gem 'rails', '~> 4.2.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Cassandra
-gem 'cassandra-driver', git: 'https://github.com/datastax/ruby-driver.git', ref: '07f4960aafbbcf50e302bd20f5c9e0dd0a94d57d'
+gem 'cassandra-driver', git: 'https://github.com/datastax/ruby-driver.git', ref: 'cd0c486'
 gem 'snappy'
 gem 'uuidtools'
 

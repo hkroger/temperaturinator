@@ -7,10 +7,10 @@ GIT
 
 GIT
   remote: https://github.com/datastax/ruby-driver.git
-  revision: 07f4960aafbbcf50e302bd20f5c9e0dd0a94d57d
-  ref: 07f4960aafbbcf50e302bd20f5c9e0dd0a94d57d
+  revision: cd0c48691c7415f1858ea5bd1ad8aeadbe88857a
+  ref: cd0c486
   specs:
-    cassandra-driver (2.1.4)
+    cassandra-driver (3.0.0.beta.1)
       ione (~> 1.2)
 
 GEM
@@ -89,7 +89,7 @@ GEM
     haml (4.0.6)
       tilt
     i18n (0.7.0)
-    ione (1.2.0)
+    ione (1.2.3)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -215,4 +215,4 @@ DEPENDENCIES
   uuidtools
 
 BUNDLED WITH
-   1.10.4
+   1.10.5
