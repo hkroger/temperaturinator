@@ -7,6 +7,24 @@ module Api
     class ChecksumDoesNotMatch < Exception;end
     class NotAuthorizedException < Exception;end
 
+    def get
+      client = verify_client(params)
+      location_id = params[:location_id].to_i
+      location = Location.find_by_id(location_id)
+      raise NotAuthorizedException.new("Invalid location") unless location
+      raise NotAuthorizedException.new("Client is not the owner of location") unless location.client_id.to_s == client.id.to_s
+
+      stats = MeasurementStats.get(location_id)
+
+      render :json => stats.params
+    rescue InvalidParameters => e
+      render :text => e.message, :status => 400
+    rescue ChecksumDoesNotMatch => e
+      render :text => e.message, :status => 401
+    rescue NotAuthorizedException => e
+      render :text => e.message, :status => 403
+    end
+
     def create
       verify_checksum(params)
       uuid_gen = Cassandra::TimeUuid::Generator.new
@@ -46,10 +64,15 @@ module Api
 
     private
 
-    def verify_checksum(hsh)
+    def verify_client(pars) 
       raise InvalidParameters.new("invalid or missing client_id") unless Uuid.is_uuid(params[:client_id])
       client = Client.find_by_id(params[:client_id])
       raise InvalidParameters.new("client not found") unless client
+      client
+    end
+
+    def verify_checksum(hsh)
+      client = verify_client(hsh)
       raise ChecksumDoesNotMatch.new("checksum does not match #{params[:checksum]} was given but #{generate_checksum(hsh, client.signing_key)} was expected.") unless generate_checksum(hsh, client.signing_key) == params[:checksum]
     end
 
