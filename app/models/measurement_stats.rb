@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class MeasurementStats < CassandraModel
   def self.fields
-    %w(location_id alarmed_at current first_read_at last_read_at max max_at min min_at)
+    %w(location_id alarmed_at current first_read_at last_read_at max max_at min min_at voltage signal_strength)
   end
 
   def self.table_name

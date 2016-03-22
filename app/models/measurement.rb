@@ -92,7 +92,7 @@ class Measurement < CassandraModel
       execute_cql(cql)
     end
 
-    cql = "UPDATE measurements_stats SET current=#{measurement}, last_read_at='#{ts_to_cassandra(ts)}' WHERE location_id = #{location_id}"
+    cql = "UPDATE measurements_stats SET current=#{measurement}, last_read_at='#{ts_to_cassandra(ts)}', voltage=#{voltage}, signal_strength=#{signal_strength} WHERE location_id = #{location_id}"
     execute_cql(cql)
   end
 
