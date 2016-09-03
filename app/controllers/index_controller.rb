@@ -16,6 +16,7 @@ class IndexController < ApplicationController
     # TODO: This is sub-optimal
     @locations = Location.all.select{ |l| l.client_id == @client.id }
     @locations.reject! { |l| l.do_not_show }
+
   end
 
   def show
