@@ -45,6 +45,7 @@ gem 'jquery-ui-rails'
 # Use unicorn as the app server
 gem 'unicorn'
 gem 'therubyracer'
+gem 'libv8', '~>3.16.14.15'
 
 
 # To use debugger
