@@ -82,6 +82,7 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
+    highline (1.7.8)
     i18n (0.7.0)
     ione (1.2.3)
     jquery-rails (4.0.4)
@@ -196,6 +197,7 @@ DEPENDENCIES
   devise
   font-awesome-sass
   haml
+  highline
   jquery-rails
   jquery-ui-rails
   libv8 (~> 3.16.14.15)

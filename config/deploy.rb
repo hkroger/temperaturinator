@@ -8,6 +8,10 @@ set :application, 'temperaturinator'
 set :repo_url, 'ssh://hg@bitbucket.org/hkroger/temperaturinator'
 set :branch, 'default'
 
+set :ssh_options, { :forward_agent => true }
+
+
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 

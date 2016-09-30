@@ -20,6 +20,7 @@ gem "capistrano", '~>3.2.1'
 gem "capistrano-rails"
 gem "capistrano-bundler"
 gem "capistrano-scm-copy", github: "hkroger/capistrano-scm-copy"
+gem 'highline'
 
 # Gems used only for assets and not required
 # in production environments by default.
