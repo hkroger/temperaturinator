@@ -5,9 +5,9 @@ development:
 
 production:
   hosts:
-    - 10.1.1.200
-    - 10.1.1.198
-    - 10.1.1.199
+    - 192.168.0.118
+    - 192.168.0.119
+    - 192.168.0.120
   keyspace: 'temperatures'
 
 
