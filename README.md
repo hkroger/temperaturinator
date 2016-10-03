@@ -1,4 +1,4 @@
-# Temperaturinator
+# Measurinator
 
 ## About
 

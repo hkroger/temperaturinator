@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Temperaturinator
+    %title Measurinator
     = favicon_link_tag '/favicon.png'
     = favicon_link_tag '/favicon.png', rel: 'apple-touch-icon', type: 'image/png'
     = stylesheet_link_tag    "application", "//fonts.googleapis.com/css?family=Lato:300"
@@ -17,7 +17,7 @@
               (function() {$.growl.#{key}({ message: "#{value}"});})()
           #title
             = link_to( url_for({:controller => "/index", :action => :show, :location => 'All'})) do 
-              %h1 Temperaturinator
+              %h1 Measurinator
           .nav-wrapper
             %nav#user
               - if respond_to?(:user_signed_in?) && user_signed_in?
