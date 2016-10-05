@@ -11,6 +11,7 @@ Web::Application.routes.draw do
   scope module: :api do
     post 'api/measurements' => 'measurements#create'
     get 'api/measurements' => 'measurements#get'
+    get 'api/locations' => 'locations#get'
   end
 
   resources :alarms do

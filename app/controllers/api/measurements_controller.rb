@@ -2,21 +2,28 @@
 require 'digest/sha1'
 
 module Api
-  class MeasurementsController < ApplicationController
-    class InvalidParameters < Exception;end
+  class MeasurementsController < ApiController 
     class ChecksumDoesNotMatch < Exception;end
     class NotAuthorizedException < Exception;end
 
     def get
       client = verify_client(params)
-      location_id = params[:location_id].to_i
-      location = Location.find_by_id(location_id)
-      raise NotAuthorizedException.new("Invalid location") unless location
-      raise NotAuthorizedException.new("Client is not the owner of location") unless location.client_id.to_s == client.id.to_s
 
-      stats = MeasurementStats.get(location_id)
+      if (params[:location_id]) 
+        location_id = params[:location_id].to_i
+        location = Location.find_by_id(location_id)
+        raise NotAuthorizedException.new("Invalid location") unless location
+        raise NotAuthorizedException.new("Client is not the owner of location") unless location.client_id.to_s == client.id.to_s
 
-      render :json => stats.params
+        stats = MeasurementStats.get(location_id)
+
+        render :json => stats.params
+      else
+        ids = Location.find_ids_by_client_id(client.id)
+        stats = ids.map{ |id| MeasurementStats.get(id) }.map(&:params)
+
+        render :json => stats
+      end
     rescue InvalidParameters => e
       render :text => e.message, :status => 400
     rescue ChecksumDoesNotMatch => e
@@ -63,13 +70,6 @@ module Api
     end
 
     private
-
-    def verify_client(pars) 
-      raise InvalidParameters.new("invalid or missing client_id") unless Uuid.is_uuid(params[:client_id])
-      client = Client.find_by_id(params[:client_id])
-      raise InvalidParameters.new("client not found") unless client
-      client
-    end
 
     def verify_checksum(hsh)
       client = verify_client(hsh)

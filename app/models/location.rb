@@ -8,6 +8,17 @@ class Location < CassandraModel
     "locations"
   end
 
+  def self.find_ids_by_client_id(client_id)
+    statement = session.prepare("SELECT id FROM locations_by_client WHERE client_id = ?")
+    execute_cql(statement, client_id).map{|o| o["id"]}
+  end
+
+  def self.find_by_client_id(client_id)
+    statement = session.prepare("SELECT id FROM locations_by_client WHERE client_id = ?")
+    ids = execute_cql(statement, client_id).map{|o| o["id"]}
+    find_by_prepare("id IN ?", ids)
+  end
+
   def self.find_by_id(id)
     return nil if id.nil?
     first_by_condition("id = #{id.to_i}")

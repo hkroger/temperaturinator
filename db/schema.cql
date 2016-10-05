@@ -386,3 +386,5 @@ CREATE TABLE temperatures.users (
     AND min_index_interval = 128
     AND read_repair_chance = 0.1
     AND speculative_retry = '99.0PERCENTILE';
+
+CREATE MATERIALIZED VIEW temperatures.locations_by_client AS SELECT id, client_id FROM locations WHERE client_id IS NOT NULL PRIMARY KEY (client_id, id);
