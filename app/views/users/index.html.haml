@@ -17,7 +17,8 @@
   - @users.each do |user|
     - admin_links = []
     - admin_links <<= link_to('edit',{:action => :edit, :id => user.username})
-    - admin_links <<= link_to('delete', {:action => :destroy, :id => user.username}, :method=>:delete, :confirm=>'Are you sure?') unless user.deleted_at
+    - admin_links <<= link_to('delete', {:action => :destroy, :id => user.username}, :method=>:delete, :data => { :confirm=>'Are you sure?'}) unless user.deleted_at
+    - admin_links <<= link_to('reset password', {:action => :reset_password, :id => user.username}, :data => { :confirm => 'Are you sure?'}) unless user.deleted_at
     %tr
       %td
         - if user.admin? and not user.deleted_at

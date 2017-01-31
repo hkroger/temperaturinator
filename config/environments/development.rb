@@ -37,6 +37,6 @@ Web::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   ActionMailer::Base.smtp_settings = {
-    :address              => "mail.inet.fi"
+    :address              => "smtp.dnainternet.net"
   }
 end

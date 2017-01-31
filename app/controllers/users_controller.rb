@@ -39,6 +39,21 @@ class UsersController < AuthorizedController
     redirect_to registered_users_path, :notice => params[:id] ? "User has been updated." : "User has been created."
   end
 
+  def reset_password
+    @user = User.find_by_username(params[:id])
+
+    characters = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
+
+    new_password = (0..12).map{characters.sample}.join
+
+    @user.password = new_password
+    @user.password_confirmation = new_password
+    @user.save
+
+    PasswordMailer.reset_password_email(@user, new_password).deliver_now
+    redirect_to registered_users_path, :notice => "User '#{@user.username}' password has been reset."
+  end
+
   def show
     @user = User.find(params[:id])
   end
