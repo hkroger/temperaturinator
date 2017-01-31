@@ -12,7 +12,7 @@ class User < CassandraModel
   validate :unique_username
 
   def unique_username
-    errors.add(:username, "is not unique") if !username.empty? and !self.class.find_by_username(username).nil? and !persisted?
+    errors.add(:username, "is not unique") if username and !username.empty? and !self.class.find_by_username(username).nil? and !persisted?
   end
 
   def report_problem(msg)

@@ -23,6 +23,7 @@ class UsersController < AuthorizedController
       a = User.find_by_username(params[:id])
     else
       a = User.new
+      a.username = params[:username]
     end
 
     a.is_admin = !!params[:is_admin]
