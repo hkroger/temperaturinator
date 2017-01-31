@@ -4,8 +4,7 @@ require "capistrano-scm-copy"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'temperaturinator'
-set :repo_url, 'ssh://hg@bitbucket.org/hkroger/temperaturinator'
+set :application, 'measurinator'
 set :branch, 'default'
 
 set :ssh_options, { :forward_agent => true }
