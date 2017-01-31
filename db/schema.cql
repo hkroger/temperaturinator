@@ -1,23 +1,10 @@
-REATE TABLE temperatures.measurements_monthly_avg (
+CREATE TABLE temperatures.measurements_monthly_avg (
     location_id int,
     year_month text,
     temperature_count counter,
     temperature_sum_in_cents counter,
     PRIMARY KEY (location_id, year_month)
-) WITH CLUSTERING ORDER BY (year_month ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (year_month ASC);
 
 CREATE TABLE temperatures.alarm_logs_by_client (
     client_id timeuuid,
@@ -27,20 +14,7 @@ CREATE TABLE temperatures.alarm_logs_by_client (
     measurement double,
     message text,
     PRIMARY KEY (client_id, id)
-) WITH CLUSTERING ORDER BY (id DESC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (id DESC);
 
 CREATE TABLE temperatures.clients (
     id timeuuid PRIMARY KEY,
@@ -48,36 +22,12 @@ CREATE TABLE temperatures.clients (
     name text,
     signing_key uuid,
     user text
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.process_statuses (
     process_name text PRIMARY KEY,
     last_updated_at timestamp
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.measurements (
     location_id int,
@@ -87,20 +37,7 @@ CREATE TABLE temperatures.measurements (
     signal_strength decimal,
     voltage decimal,
     PRIMARY KEY ((location_id, year_month), id)
-) WITH CLUSTERING ORDER BY (id ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (id ASC);
 
 CREATE TABLE temperatures.alarm_logs_by_location (
     location_id int,
@@ -110,20 +47,7 @@ CREATE TABLE temperatures.alarm_logs_by_location (
     measurement double,
     message text,
     PRIMARY KEY (location_id, id)
-) WITH CLUSTERING ORDER BY (id DESC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (id DESC);
 
 CREATE TABLE temperatures.measurements_monthly_min_max (
     location_id int,
@@ -133,20 +57,7 @@ CREATE TABLE temperatures.measurements_monthly_min_max (
     min double,
     min_at timestamp,
     PRIMARY KEY (location_id, year_month)
-) WITH CLUSTERING ORDER BY (year_month ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.locations (
     id int PRIMARY KEY,
@@ -156,19 +67,7 @@ CREATE TABLE temperatures.locations (
     do_not_show boolean,
     sensors set<int>,
     username text
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.alarm_notifications_by_alarm (
     alarm_id timeuuid,
@@ -178,20 +77,7 @@ CREATE TABLE temperatures.alarm_notifications_by_alarm (
     pushover boolean,
     updated_at timestamp,
     PRIMARY KEY (alarm_id, username)
-) WITH CLUSTERING ORDER BY (username ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (username ASC);
 
 CREATE TABLE temperatures.measurements_daily_min_max (
     location_id int,
@@ -201,20 +87,7 @@ CREATE TABLE temperatures.measurements_daily_min_max (
     min double,
     min_at timestamp,
     PRIMARY KEY (location_id, day)
-) WITH CLUSTERING ORDER BY (day ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (day ASC);
 
 CREATE TABLE temperatures.measurements_daily_avg (
     location_id int,
@@ -223,20 +96,7 @@ CREATE TABLE temperatures.measurements_daily_avg (
     temperature_count counter,
     temperature_sum_in_cents counter,
     PRIMARY KEY ((location_id, year_month), day)
-) WITH CLUSTERING ORDER BY (day ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (day ASC);
 
 CREATE TABLE temperatures.measurements_hourly_avg (
     location_id int,
@@ -245,20 +105,7 @@ CREATE TABLE temperatures.measurements_hourly_avg (
     temperature_count counter,
     temperature_sum_in_cents counter,
     PRIMARY KEY ((location_id, year_month), hour)
-) WITH CLUSTERING ORDER BY (hour ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (hour ASC);
 
 CREATE TABLE temperatures.measurements_stats (
     location_id int PRIMARY KEY,
@@ -270,19 +117,7 @@ CREATE TABLE temperatures.measurements_stats (
     max_at timestamp,
     min double,
     min_at timestamp
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.alarms (
     location_id int,
@@ -297,37 +132,12 @@ CREATE TABLE temperatures.alarms (
     two_way_alarm boolean,
     updated_at timestamp,
     PRIMARY KEY (location_id, id)
-) WITH CLUSTERING ORDER BY (id ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (id ASC);
 
 CREATE TABLE temperatures.sensors (
     id int PRIMARY KEY,
     location_id int
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE TABLE temperatures.alarm_logs_by_alarm (
     alarm_id timeuuid,
@@ -337,20 +147,7 @@ CREATE TABLE temperatures.alarm_logs_by_alarm (
     measurement double,
     message text,
     PRIMARY KEY (alarm_id, id)
-) WITH CLUSTERING ORDER BY (id DESC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.1
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
+) WITH CLUSTERING ORDER BY (id DESC);
 
 CREATE TABLE temperatures.users (
     username text PRIMARY KEY,
@@ -373,18 +170,6 @@ CREATE TABLE temperatures.users (
     reset_password_token text,
     sign_in_count int,
     updated_at timestamp
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = ''
-    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 864000
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 0
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.1
-    AND speculative_retry = '99.0PERCENTILE';
+);
 
 CREATE MATERIALIZED VIEW temperatures.locations_by_client AS SELECT id, client_id FROM locations WHERE client_id IS NOT NULL PRIMARY KEY (client_id, id);

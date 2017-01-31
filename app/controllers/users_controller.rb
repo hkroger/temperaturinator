@@ -3,7 +3,7 @@ class UsersController < AuthorizedController
   before_filter :admin_only
 
   def index
-    @users = User.all
+    @users = User.all.select{ |u| u.active? || params[:all] }
   end
 
   def new

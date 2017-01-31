@@ -61,6 +61,10 @@ class User < CassandraModel
     new(params, false)
   end
 
+  def active?
+    !deleted_at
+  end
+
   def admin?
     is_admin
   end
