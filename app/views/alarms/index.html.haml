@@ -9,16 +9,16 @@
   %h3 
     = client.name.capitalize
     = link_to('(logs)', {:controller => 'alarms', :action=>'logs', :client => client.id })
-  %table
-    %th Location
-    %th Threshold
+  %table.alarm_table
+    %th.location Location
+    %th.threshold Threshold
     %th Hysteresis
     %th Alarm when
     %th Recovery notification
     %th Pushover
     %th Email
     %th Total subscribers
-    %th Owner
+    %th.owner Owner
     %th Actions
     - @alarms.select{ |a| a.location.client_id == client.id }.each do |alarm|
       - is_owner = alarm.owner == current_user.username || current_user.admin?
@@ -56,4 +56,4 @@
               %i.fa.fa-circle-o
         %td= alarm.alarm_notifications.length
         %td= alarm.owner
-        %td= raw admin_links.join(" | ")
+        %td.actions= raw admin_links.join(" | ")
