@@ -5,12 +5,10 @@
     %i.fa.fa-plus
     New location
 
-- @locations.map{|l| l.client_id}.uniq.each do |client_id|
-  - client = Client.find_by_id(client_id)
+- @clients.each do |client|
   %h3 
     = client.name.capitalize
   %table
-    %th Location id
     %th Description
     %th User
     %th Sensors
@@ -18,7 +16,7 @@
     %th Do not show
     %th Actions
     - clients ||= {}
-    - @locations.select{ |l| l.client_id == client_id }.each do |location|
+    - @locations.select{ |l| l.client_id == client.id }.each do |location|
       - is_owner = (location.username == current_user.username) || current_user.admin?
       - clients[location.client_id.to_s] ||= Client.find_by_id(location.client_id) if location.client_id
       - client = clients[location.client_id.to_s]
@@ -27,7 +25,6 @@
       - admin_links <<= link_to('delete', {:action => :destroy, :id => location.id}, :method=>:delete, :confirm=>'Are you sure?') if is_owner
       - admin_links <<= link_to('alarm logs',{:controller => :alarms, :action => :logs, :location_id => location.id}) if is_owner
       %tr
-        %td= location.id
         %td= link_to(location.try(:description).try(:capitalize), {:controller=>'index', :action=>'show', :location => location.try(:id) })
         %td= link_to(location.username, {:controller => 'users', :username => location.username}) if location.username
         %td= location.sensor_list

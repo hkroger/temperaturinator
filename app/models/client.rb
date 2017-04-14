@@ -9,6 +9,11 @@ class Client < CassandraModel
     first_by_condition("id = #{id}")
   end
 
+  def self.all
+    list = super
+    list.sort_by { |c| c.name }
+  end
+
   def self.fields
     %w(id disabled_at name signing_key user)
   end

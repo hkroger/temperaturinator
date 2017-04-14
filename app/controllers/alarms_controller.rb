@@ -4,6 +4,9 @@ class AlarmsController < AuthorizedController
 
   def index
     @alarms = Alarm.all
+    @clients = @alarms.map{|l| l.location.client_id}.uniq.map do |client_id|
+       Client.find_by_id(client_id)
+    end.sort_by{ |c| c.name }
   end
 
   def new
@@ -27,6 +30,15 @@ class AlarmsController < AuthorizedController
     else
       return redirect_to alarms_path, :notice => "Invalid log search parameters"
     end
+
+    @clients = @logs.map{|l| l.client_id}.uniq.map do |client_id|
+       Client.find_by_id(client_id)
+    end
+    @client_names = {}
+    @clients.each do |c|
+      @client_names[c.id] = c.name
+    end
+
 
   end
   

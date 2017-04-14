@@ -1,9 +1,4 @@
 = form_tag(url_for(:locations), :method => :post)
--unless @location.id
-  .field
-    .label
-      = label_tag :id
-    = text_field_tag :id, @location.id
 .field
   .label
     = label_tag :client_id

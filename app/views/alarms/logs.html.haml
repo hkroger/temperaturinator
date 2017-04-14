@@ -12,7 +12,7 @@
       %td 
         = log.id.to_time
       %td 
-        = Client.find_by_id(log.client_id).name
+        = @client_names[log.client_id]
       %td 
         = log.location_id
       %td 

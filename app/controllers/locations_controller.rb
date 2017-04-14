@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 class LocationsController < AuthorizedController
   def index
-    @locations = Location.all
+    @locations = Location.all.select { |l| current_user.admin? || l.username == current_user.username }.sort_by{ |i| i.description }
+    @clients = @locations.map{|l| l.client_id}.uniq.map do |client_id|
+       Client.find_by_id(client_id)
+    end.sort_by{ |c| c.name }
   end
 
   def new
@@ -18,7 +21,11 @@ class LocationsController < AuthorizedController
       a.username = params[:username]
     else
       a = Location.new
-      a.id = params[:id].to_i
+      begin
+        a.id = Random.rand(100000000)
+        existing_location = Location.find_by_id(a.id)
+      end while !existing_location.nil?
+      
       a.username = current_user.username
     end
 

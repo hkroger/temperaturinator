@@ -5,11 +5,10 @@
     %i.fa.fa-plus
     New alarm
 
-- @alarms.map{|a| a.location.client_id}.uniq.each do |client_id|
-  - client = Client.find_by_id(client_id)
+- @clients.each do |client|
   %h3 
     = client.name.capitalize
-    = link_to('(logs)', {:controller => 'alarms', :action=>'logs', :client => client_id})
+    = link_to('(logs)', {:controller => 'alarms', :action=>'logs', :client => client.id })
   %table
     %th Location
     %th Threshold
@@ -21,7 +20,7 @@
     %th Total subscribers
     %th Owner
     %th Actions
-    - @alarms.select{ |a| a.location.client_id == client_id }.each do |alarm|
+    - @alarms.select{ |a| a.location.client_id == client.id }.each do |alarm|
       - is_owner = alarm.owner == current_user.username || current_user.admin?
       - pushover = alarm.pushover?(current_user)
       - email = alarm.email?(current_user)
