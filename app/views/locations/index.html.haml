@@ -8,10 +8,10 @@
 - @clients.each do |client|
   %h3 
     = client.name.capitalize
-  %table
-    %th Description
-    %th User
-    %th Sensors
+  %table.locations_table
+    %th.description Description
+    %th.user User
+    %th.sensors Sensors
     %th Do not alarm
     %th Do not show
     %th Actions
