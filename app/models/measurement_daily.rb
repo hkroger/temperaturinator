@@ -5,7 +5,7 @@ class MeasurementDaily < CassandraModel
     year_months = (start_time.to_i..(end_time + 1.day).to_i).step(1.day).map { |t| "'" + ts_to_year_month(Time.at(t)) + "'" }.uniq
 
     cql = "SELECT day as timestamp, temperature_count, temperature_sum_in_cents FROM measurements_daily_avg WHERE location_id = #{location_id} AND "+
-      "year_month IN (#{year_months.join(",")}) AND day >= '#{start_time.to_date.to_s} 00:00:00' AND day <= '#{end_time.to_date.to_s} 00:00:00'"
+      "year_month IN (#{year_months.join(",")}) AND day >= '#{start_time.to_date.to_s} 00:00:00Z' AND day <= '#{end_time.to_date.to_s} 00:00:00Z'"
     results = execute_cql(cql)
   end
 
@@ -13,7 +13,7 @@ class MeasurementDaily < CassandraModel
     year_months = (start_time.to_i..(end_time + 1.day).to_i).step(1.day).map { |t| "'" + ts_to_year_month(Time.at(t)) + "'" }.uniq
 
     cql = "SELECT day, min, max FROM measurements_daily_min_max WHERE location_id = #{location_id} AND "+
-      "day >= '#{start_time.to_date.to_s} 00:00:00' AND day <= '#{end_time.to_date.to_s} 00:00:00'"
+      "day >= '#{start_time.to_date.to_s} 00:00:00Z' AND day <= '#{end_time.to_date.to_s} 00:00:00Z'"
     results = execute_cql(cql)
 
     minmax = {min: [], max: []}

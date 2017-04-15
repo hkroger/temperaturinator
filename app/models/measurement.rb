@@ -1,9 +1,8 @@
-# -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*- 
 class Measurement < CassandraModel
-
-  def self.fields
-    %w(location_id year_month id measurement voltage signal_strength)
-  end
+  def self.fields 
+    %w(location_id year_month id measurement voltage signal_strength) 
+  end 
 
   def self.table_name
     "measurements"
@@ -105,7 +104,7 @@ class Measurement < CassandraModel
   end
 
   def to_day_stamp(ts)
-    ts.strftime('%Y-%m-%d 00:00:00')
+    ts.strftime('%Y-%m-%d 00:00:00Z')
   end
 
   def to_year_month(timestamp)
