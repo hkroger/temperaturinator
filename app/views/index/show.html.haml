@@ -2,7 +2,7 @@
   .box
     = form_tag("",:method=>:get)
     = select_tag(:client, options_for_select( Client.all.map { |c| [c.name.capitalize,c.id]},@client.id), :onchange => 'this.form.submit();')
-    = select_tag(:location, options_for_select( ['All']+Location.all.select{ |l| l.client_id == @client.id and !l.do_not_show }.map { |l| [l.description.capitalize,l.id]},@location), :onchange => 'this.form.submit();')
+    = select_tag(:location, options_for_select( ['All']+@all_locations.map { |l| [l.description.capitalize,l.id]},@location), :onchange => 'this.form.submit();')
     = select_tag(:type, options_for_select( [['Measurements', :measurements],['Hourly averages', :hourly],['Daily stats', :daily],['Monthly stats', :monthly]], @type), :onchange => 'this.form.submit();')
     = select_tag(:measurement_days, time_ranges(@type, @measurement_days), :onchange => 'this.form.submit();')
     %script{:charset => "utf-8", :type => "text/javascript"}

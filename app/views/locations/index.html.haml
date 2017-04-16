@@ -14,6 +14,7 @@
     %th.sensors Sensors
     %th Do not alarm
     %th Do not show
+    %th Do not show to anonymous users
     %th Actions
     - clients ||= {}
     - @locations.select{ |l| l.client_id == client.id }.each do |location|
@@ -35,6 +36,11 @@
             %i.fa.fa-square-o
         %td
           - if location.do_not_show
+            %i.fa.fa-check-square-o
+          - else
+            %i.fa.fa-square-o
+        %td
+          - if location.do_not_show_publically
             %i.fa.fa-check-square-o
           - else
             %i.fa.fa-square-o

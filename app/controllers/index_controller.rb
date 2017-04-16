@@ -15,7 +15,7 @@ class IndexController < ApplicationController
 
     # TODO: This is sub-optimal
     @locations = Location.all.select{ |l| l.client_id == @client.id }
-    @locations.reject! { |l| l.do_not_show }
+    locations_visibility_filter(@locations)
     @locations.sort_by! { |l| l.description }
   end
 
@@ -35,10 +35,12 @@ class IndexController < ApplicationController
     @type = 'measurements' unless %w(measurements daily hourly monthly).include? @type
     session[:type] = @type
 
+    @all_locations = Location.all.select{ |l| l.client_id == @client.id }
     @locations = [Location.find_by_id(@location)].select{ |l| l.client_id == @client.id }.compact if @location != 'All'
     # TODO: This is sub-optimal
     @locations = Location.all.select{ |l| l.client_id == @client.id } if !@locations || @locations.length == 0
-    @locations.reject! { |l| l.do_not_show }
+    locations_visibility_filter(@locations)
+    locations_visibility_filter(@all_locations)
     @measurement_days = [(params[:measurement_days].try(:to_i) || session[:measurement_days].try(:to_i) || 1),1].max
     limit_days
     session[:measurement_days] = @measurement_days 
@@ -47,6 +49,10 @@ class IndexController < ApplicationController
   end
 
   private
+
+  def locations_visibility_filter(locations)
+    locations.reject! { |l| l.do_not_show || (l.do_not_show_publically && !user_signed_in?) }
+  end
 
   def user_default_client_id
     if user_signed_in?

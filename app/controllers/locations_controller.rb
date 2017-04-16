@@ -31,8 +31,9 @@ class LocationsController < AuthorizedController
 
     a.description = params[:name]
     a.client_id = Cassandra::Uuid.new(params[:client_id])
-    a.do_not_show = params[:do_not_show].present?
     a.do_not_alarm = params[:do_not_alarm].present?
+    a.do_not_show = params[:do_not_show].present?
+    a.do_not_show_publically = params[:do_not_show_publically].present?
     a.sensors = Set.new(params[:sensor_list].gsub(" ","").split(",").map(&:to_i))
 
     a.sensors.each do |sensor|

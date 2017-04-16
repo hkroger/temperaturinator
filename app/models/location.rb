@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Location < CassandraModel
   def self.fields
-    %w(id description username client_id do_not_alarm do_not_show sensors)
+    %w(id description username client_id do_not_alarm do_not_show do_not_show_publically sensors)
   end
 
   def self.table_name
