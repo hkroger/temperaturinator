@@ -16,7 +16,7 @@ gem 'haml'
 gem 'pry'
 gem 'font-awesome-sass'
 
-gem "capistrano", '~>3.2.1'
+gem "capistrano", '~>3.4.0'
 gem "capistrano-rails"
 gem "capistrano-bundler"
 gem "capistrano-scm-copy", github: "hkroger/capistrano-scm-copy"
@@ -45,7 +45,7 @@ gem 'jquery-ui-rails'
 
 # Use unicorn as the app server
 gem 'unicorn'
-#gem 'therubyracer'
+gem 'therubyracer'
 #gem 'libv8', '~>3.16.14.15'
 
 

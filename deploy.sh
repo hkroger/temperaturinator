@@ -1,1 +1,1 @@
-bundle exec cap production deploy
+ruby -S bundle exec cap production deploy

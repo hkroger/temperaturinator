@@ -2,13 +2,12 @@ require "capistrano-scm-copy"
 
 #
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+lock '3.4.1'
 
 set :application, 'measurinator'
 set :branch, 'default'
 
 set :ssh_options, { :forward_agent => true }
-
 
 
 # Default branch is :master
@@ -21,7 +20,7 @@ set :ssh_options, { :forward_agent => true }
 set :scm, :copy
 
 set :use_sudo, false
-set :exclude_dir, ["log", "tmp"]
+set :exclude_dir, ["log", "tmp", "vendor/bundle"]
 
 # Default value for :format is :pretty
 # set :format, :pretty
