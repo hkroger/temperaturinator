@@ -9,3 +9,4 @@ public/assets
 .bundle
 .idea
 web.iml
+vendor/bundle

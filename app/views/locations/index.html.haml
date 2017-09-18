@@ -10,11 +10,12 @@
     = client.name.capitalize
   %table.locations_table
     %th.description Description
-    %th.user User
+    %th.quantity Quantity
     %th.sensors Sensors
     %th Do not alarm
-    %th Do not show
-    %th Do not show to anonymous users
+    %th Hide
+    %th Hide (unlogged users)
+    %th.user User
     %th Actions
     - clients ||= {}
     - @locations.select{ |l| l.client_id == client.id }.each do |location|
@@ -27,7 +28,7 @@
       - admin_links <<= link_to('alarm logs',{:controller => :alarms, :action => :logs, :location_id => location.id}) if is_owner
       %tr
         %td= link_to(location.try(:description).try(:capitalize), {:controller=>'index', :action=>'show', :location => location.try(:id) })
-        %td= link_to(location.username, {:controller => 'users', :username => location.username}) if location.username
+        %td= location.quantity
         %td= location.sensor_list
         %td
           - if location.do_not_alarm
@@ -44,4 +45,5 @@
             %i.fa.fa-check-square-o
           - else
             %i.fa.fa-square-o
+        %td= link_to(location.username, {:controller => 'users', :username => location.username}) if location.username
         %td= raw admin_links.join(" | ")

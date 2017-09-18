@@ -151,6 +151,10 @@ class CassandraModel
   end
 
   def value_to_cassandra(value)
+    if value.is_a? Symbol
+      value = value.to_s
+    end
+
     if value and value.is_a? String
       return "'#{value.gsub("'","''")}'"
     end

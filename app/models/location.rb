@@ -1,11 +1,23 @@
 # -*- encoding : utf-8 -*-
 class Location < CassandraModel
+  def self.quantities
+    [:temperature, :humidity]
+  end
+
   def self.fields
-    %w(id description username client_id do_not_alarm do_not_show do_not_show_publically sensors)
+    %w(id description username client_id do_not_alarm do_not_show do_not_show_publically sensors quantity)
   end
 
   def self.table_name
     "locations"
+  end
+
+  def quantity
+    super || :temperature
+  end
+
+  def unit
+    { nil => "°C", :temperature => "°C", :humidity => "%"}[quantity && quantity.to_sym]
   end
 
   def self.find_ids_by_client_id(client_id)
@@ -28,10 +40,6 @@ class Location < CassandraModel
     "#{description} (#{client.try(:name).try(:capitalize)})"
   end
 
-  def client
-    @client_cache ||= Client.cached_find_by_id(client_id)
-  end
-
   def last_measurement
     MeasurementStats.get(id)
   end
@@ -41,8 +49,10 @@ class Location < CassandraModel
   end
 
   def update
-    puts map_attributes.inspect
     value_map = map_attributes
+    puts "JEEEE"
+    puts @params
+    puts value_map.inspect
     sets = value_map.keys.select{ |k| !%w(id).include? k.to_s}.map{ |k| k.to_s + "=" + value_map[k] }.join(",")
     cql = "UPDATE #{self.class.table_name} SET #{sets} WHERE id = #{id}"
     result = execute_cql(cql)

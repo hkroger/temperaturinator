@@ -30,6 +30,7 @@ class LocationsController < AuthorizedController
     end
 
     a.description = params[:name]
+    a.quantity = params[:quantity].to_sym
     a.client_id = Cassandra::Uuid.new(params[:client_id])
     a.do_not_alarm = params[:do_not_alarm].present?
     a.do_not_show = params[:do_not_show].present?

@@ -19,6 +19,6 @@
         = link_to('edit',{:action => :edit, :id => log.alarm_id, :location_id => log.location_id })
       %td 
         = log.measurement
-        °C
+        = log.location.unit
       %td 
         = log.message

@@ -5,13 +5,13 @@
       = location.description.capitalize
     .measurement(title="#{m.try(:last_read_at).try(:to_s,:db)}")
       = m ? number_with_precision(m.current, :precision=>1) : '-'
-      \&deg;C
+      #{ location.unit }
 
     .max-min
       .max(title="#{m ? m['max_at'].to_s(:db) : '-'}")
-        Max #{number_with_precision(m.try(:max), :precision=>1)} &deg;C
+        Max #{number_with_precision(m.try(:max), :precision=>1)} #{ location.unit }
       .min(title="#{m ? m['min_at'].to_s(:db) : '-'}")
-        Min #{number_with_precision(m.try(:min), :precision=>1)} &deg;C
+        Min #{number_with_precision(m.try(:min), :precision=>1)} #{ location.unit }
 
     - if m.nil?
       .red Never measured

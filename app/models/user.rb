@@ -2,6 +2,7 @@
 require 'pry'
 
 class User < CassandraModel
+  define_model_callbacks :update
   EMAIL='email'
   PUSHOVER='pushover'
   extend Devise::Models

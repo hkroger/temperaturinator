@@ -1,4 +1,4 @@
-class AlarmLogsByAlarm < CassandraModel
+class AlarmLogsByAlarm < BaseAlarmLog
   def self.fields
     %w(client_id id location_id alarm_id message measurement)
   end

@@ -19,16 +19,20 @@
   = text_field_tag :sensor_list, @location.sensor_list
 .field
   .label
+    = label_tag :quantity
+  = select_tag :quantity, options_from_collection_for_select(Location.quantities, "to_s", "to_s", @location.quantity)
+.field
+  .label
     = label_tag :do_not_alarm
   = check_box_tag :do_not_alarm, 1, @location.do_not_alarm.present?
 .field
   .label
-    = label_tag :do_not_show
+    = label_tag :do_not_show, "Hide"
   = check_box_tag :do_not_show, 1, @location.do_not_show.present?
 
 .field
   .label
-    = label_tag :do_not_show_publically, "Do not show to unlogged users"
+    = label_tag :do_not_show_publically, "Hide from unlogged users"
   = check_box_tag :do_not_show_publically, 1, @location.do_not_show_publically.present?
 
 %br

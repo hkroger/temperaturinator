@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.1'
+gem 'rails', '~> 4.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Cassandra
-gem 'cassandra-driver', '~> 3.0.3'
+gem 'cassandra-driver', '~> 3.2.0'
 gem 'snappy'
 gem 'uuidtools'
 
-gem 'devise'
+gem 'devise', '~>3.5.1'
 gem 'simple-navigation'
 gem 'haml'
 gem 'pry'
@@ -45,8 +45,8 @@ gem 'jquery-ui-rails'
 
 # Use unicorn as the app server
 gem 'unicorn'
-gem 'therubyracer'
-gem 'libv8', '~>3.16.14.15'
+#gem 'therubyracer'
+#gem 'libv8', '~>3.16.14.15'
 
 
 # To use debugger
