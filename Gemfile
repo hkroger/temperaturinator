@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.9'
+gem 'rails', '~> 4.2.11.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,7 +13,7 @@ gem 'cassandra-driver', '~> 3.2.0'
 gem 'snappy'
 gem 'uuidtools'
 
-gem 'devise', '~>3.5.1'
+# gem 'devise', '~>3.5.1'
 gem 'simple-navigation'
 gem 'haml'
 gem 'pry'
@@ -54,3 +54,14 @@ gem 'therubyracer'
 
 # To use debugger
 # gem 'debugger'
+
+# Security fixes
+gem "sprockets", ">= 3.7.2"
+gem "nokogiri", ">= 1.8.5"
+gem "ffi", ">= 1.9.24"
+gem "devise", ">= 4.6.0"
+gem "activejob", ">= 4.2.11"
+gem "rack", ">= 1.6.11"
+gem "actionview", ">= 4.2.11.1"
+gem "rails-html-sanitizer", ">= 1.0.4"
+gem "loofah", ">= 2.2.3"

@@ -1,5 +1,4 @@
 - Remove capistrano or use it to deploy docker?
-- Upgrade ruby to 2.3, 2.4, 2.5 and to 2.6
+- Upgrade ruby to 2.4, 2.5 and to 2.6
 - Upgrade rails
 - Upgrade cassandra connector
-

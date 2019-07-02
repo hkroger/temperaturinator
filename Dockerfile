@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby22:latest
+FROM phusion/passenger-ruby23:latest
 MAINTAINER Hannu "hkroger@gmail.com"
 
 RUN apt-get update 
@@ -10,6 +10,8 @@ ENV RAILS_ENV production
 ENV DB_HOSTS ""
 
 CMD ["/sbin/my_init"]
+
+RUN gem update bundler
 
 RUN rm -f /etc/service/nginx/down  
 RUN rm /etc/nginx/sites-enabled/default  

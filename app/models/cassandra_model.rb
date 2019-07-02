@@ -14,6 +14,10 @@ class CassandraModel
   attr_accessor :params
   attr_accessor :old_params
 
+  def new_record?
+    !persisted?
+  end
+
   def persisted?
     @persisted || false
   end
