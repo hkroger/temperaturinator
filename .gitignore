@@ -10,3 +10,4 @@ public/assets
 .idea
 web.iml
 vendor/bundle
+archive.tar.gz

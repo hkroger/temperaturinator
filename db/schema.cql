@@ -65,6 +65,8 @@ CREATE TABLE temperatures.locations (
     description text,
     do_not_alarm boolean,
     do_not_show boolean,
+    do_not_show_publically boolean,
+    quantity text,
     sensors set<int>,
     username text
 );

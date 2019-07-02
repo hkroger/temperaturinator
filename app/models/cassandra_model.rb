@@ -124,8 +124,11 @@ class CassandraModel
     
     interval = 2 # reconnect every 2 seconds
     policy   = Cassandra::Reconnection::Policies::Constant.new(interval)
+    env_hosts = (ENV["DB_HOSTS"] || "").split(",")
 
-    cluster = Cassandra.cluster(:logger => Rails.logger, :reconnection_policy => policy, :hosts => config['hosts'], :consistency => :one)
+    hosts = env_hosts.empty? ? config["hosts"] : env_hosts
+
+    cluster = Cassandra.cluster(:logger => Rails.logger, :reconnection_policy => policy, :hosts => hosts, :consistency => :one)
     session = cluster.connect(config['keyspace'])
     session 
   end
