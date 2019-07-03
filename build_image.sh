@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t measurinator-website .
+docker build -t hkroger/measurinator-website .
