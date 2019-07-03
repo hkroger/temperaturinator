@@ -17,27 +17,27 @@ RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default  
 
 # Handle the gems first
-ADD Gemfile /home/app/temperaturinator_website/
-ADD Gemfile.lock /home/app/temperaturinator_website/
-WORKDIR /home/app/temperaturinator_website
-RUN chown -R app:app /home/app/temperaturinator_website
+ADD Gemfile /home/app/measurinator_website/
+ADD Gemfile.lock /home/app/measurinator_website/
+WORKDIR /home/app/measurinator_website
+RUN chown -R app:app /home/app/measurinator_website
 RUN gem environment
 RUN sudo -u app bundle install --deployment
 
 # Handle the app itself
-ADD bin /home/app/temperaturinator_website/bin
-ADD config /home/app/temperaturinator_website/config
-ADD app /home/app/temperaturinator_website/app
-ADD db /home/app/temperaturinator_website/db
-ADD lib /home/app/temperaturinator_website/lib
-ADD public /home/app/temperaturinator_website/public
-ADD script /home/app/temperaturinator_website/script
-ADD vendor /home/app/temperaturinator_website/vendor
-ADD Rakefile /home/app/temperaturinator_website/
-ADD config.ru /home/app/temperaturinator_website/
+ADD bin /home/app/measurinator_website/bin
+ADD config /home/app/measurinator_website/config
+ADD app /home/app/measurinator_website/app
+ADD db /home/app/measurinator_website/db
+ADD lib /home/app/measurinator_website/lib
+ADD public /home/app/measurinator_website/public
+ADD script /home/app/measurinator_website/script
+ADD vendor /home/app/measurinator_website/vendor
+ADD Rakefile /home/app/measurinator_website/
+ADD config.ru /home/app/measurinator_website/
 RUN mkdir -p log tmp
 
-RUN chown -R app:app /home/app/temperaturinator_website
+RUN chown -R app:app /home/app/measurinator_website
 RUN sudo -u app RAILS_ENV=production rake assets:precompile
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

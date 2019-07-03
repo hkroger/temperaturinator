@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build --tag="temperaturinator-website" .
+docker build -t measurinator-website .
