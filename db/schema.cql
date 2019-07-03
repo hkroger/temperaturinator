@@ -118,7 +118,9 @@ CREATE TABLE temperatures.measurements_stats (
     max double,
     max_at timestamp,
     min double,
-    min_at timestamp
+    min_at timestamp,
+    signal_strength decimal,
+    voltage decimal
 );
 
 CREATE TABLE temperatures.alarms (
