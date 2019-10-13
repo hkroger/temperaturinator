@@ -50,9 +50,6 @@ class Location < CassandraModel
 
   def update
     value_map = map_attributes
-    puts "JEEEE"
-    puts @params
-    puts value_map.inspect
     sets = value_map.keys.select{ |k| !%w(id).include? k.to_s}.map{ |k| k.to_s + "=" + value_map[k] }.join(",")
     cql = "UPDATE #{self.class.table_name} SET #{sets} WHERE id = #{id}"
     result = execute_cql(cql)

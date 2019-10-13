@@ -9,7 +9,7 @@ module Api
     def get
       client = verify_client(params)
 
-      locations = Location.find_by_client_id(client.id).map(&:params).map{|p| p.slice("id", "description")}
+      locations = Location.find_by_client_id(client.id).map(&:params).map{|p| p.slice("id", "description", "quantity")}
       render :json => locations
     rescue InvalidParameters => e
       render :text => e.message, :status => 400
