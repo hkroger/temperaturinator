@@ -61,7 +61,7 @@ gem 'bcrypt_pbkdf'
 
 # Security fixes
 gem "sprockets", ">= 3.7.2"
-gem "nokogiri", "~> 1.10.7"
+gem "nokogiri", "~> 1.8.5"
 gem "ffi", ">= 1.9.24"
 gem "devise", ">= 4.6.0"
 gem "activejob", ">= 4.2.11"
