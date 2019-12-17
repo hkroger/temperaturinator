@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby23:latest
+FROM phusion/passenger-ruby21:latest
 MAINTAINER Hannu "hkroger@gmail.com"
 
 RUN apt-get update 
@@ -16,10 +16,11 @@ RUN gem update bundler
 RUN rm -f /etc/service/nginx/down  
 RUN rm /etc/nginx/sites-enabled/default  
 
+WORKDIR /home/app/measurinator_website
+
 # Handle the gems first
 ADD Gemfile /home/app/measurinator_website/
 ADD Gemfile.lock /home/app/measurinator_website/
-WORKDIR /home/app/measurinator_website
 RUN chown -R app:app /home/app/measurinator_website
 RUN gem environment
 RUN sudo -u app bundle install --deployment
@@ -44,3 +45,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD nginx.conf /etc/nginx/sites-enabled/measurinator.conf
 ADD nginx-env.conf /etc/nginx/main.d/measurinator-env.conf
+ADD Capfile /home/app/measurinator_website/

@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+# ruby '~> 2.1.9'
 
 gem 'rails', '~> 4.2.11.1'
 
@@ -50,6 +51,9 @@ gem 'jquery-ui-rails'
 gem 'unicorn'
 gem 'therubyracer'
 #gem 'libv8', '~>3.16.14.15'
+gem 'rbnacl'
+gem 'rbnacl-libsodium'
+gem 'bcrypt_pbkdf'
 
 
 # To use debugger
@@ -57,7 +61,7 @@ gem 'therubyracer'
 
 # Security fixes
 gem "sprockets", ">= 3.7.2"
-gem "nokogiri", ">= 1.8.5"
+gem "nokogiri", "~> 1.8.5"
 gem "ffi", ">= 1.9.24"
 gem "devise", ">= 4.6.0"
 gem "activejob", ">= 4.2.11"

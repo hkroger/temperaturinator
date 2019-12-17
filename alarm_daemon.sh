@@ -1,6 +1,2 @@
 #!/bin/bash --login
-PATH=$PATH:$HOME/.rvm/bin
-source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-rvm use ruby-2.1
-cd `dirname $0`
-RAILS_ENV=production rails runner Alarm.watch
+docker run --rm --name measurinator -e PASSENGER_APP_ENV=development -e DB_HOSTS=$(ifconfig en0|grep "inet "|sed "s/^.*inet \([0-9.]*\)*.*$/\1/") -p 9999:80 hkroger/measurinator-website bundle exec rails runner Alarm.watch

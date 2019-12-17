@@ -13,7 +13,7 @@
 
 server 'node2', user: 'hkroger', roles: %w{web app passenger alarm}
 server 'node3', user: 'hkroger', roles: %w{web app passenger}
-server 'node6', user: 'hkroger', roles: %w{web app passenger}
+# server 'node6', user: 'hkroger', roles: %w{web app passenger}
 
 # Custom SSH Options
 # ==================

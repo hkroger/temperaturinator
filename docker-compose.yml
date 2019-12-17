@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  web:
+    image: "hkroger/measurinator-website:latest"
+    build:
+      context: .
+    volumes:
+      - ~/.ssh/:/root/.ssh
+      - ./:/home/app/measurinator_website
+    ports:
+      - "3000:3000"
+    command: bash
+    environment:
+      RAILS_ENV: "development"
+      DB_HOSTS: "docker.for.mac.localhost"

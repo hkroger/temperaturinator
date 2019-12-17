@@ -25,3 +25,17 @@ Then
 Now you are ready to run the software by executing 
 
 	$ rails server
+
+## Docker deployment (for now)
+
+Start docker env:
+
+	docker-compose run web bash
+	
+Inside docker, setup ssh
+
+	eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa
+	
+Deploy
+
+	ruby -S bundle exec cap production deploy
