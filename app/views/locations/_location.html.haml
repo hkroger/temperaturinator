@@ -3,14 +3,14 @@
   .location
     .name
       = location.description.capitalize
-    .measurement(title="#{m.try(:last_read_at).try(:to_s,:db)}")
+    .measurement(title="#{format_time_and_date(m.try(:last_read_at))}")
       = m ? number_with_precision(m.current, :precision=>1) : '-'
       #{ location.unit }
 
     .max-min
-      .max(title="#{m ? m['max_at'].to_s(:db) : '-'}")
+      .max(title="#{m ? format_time_and_date(m['max_at']) : '-'}")
         Max #{number_with_precision(m.try(:max), :precision=>1)} #{ location.unit }
-      .min(title="#{m ? m['min_at'].to_s(:db) : '-'}")
+      .min(title="#{m ? format_time_and_date(m['min_at']) : '-'}")
         Min #{number_with_precision(m.try(:min), :precision=>1)} #{ location.unit }
 
     - if m.nil?

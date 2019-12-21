@@ -25,14 +25,17 @@ module ApplicationHelper
   end
 
   def format_time_and_date(time)
+    return nil if time.nil?
     time.localtime.strftime("%Y-%m-%d %H:%M:%S")
   end
 
   def format_time_only(time)
+    return nil if time.nil?
     time.localtime.strftime("%H:%M:%S")
   end
 
   def diff_time_only(time_diff)
+    return nil if time_diff.nil?
     Time.at(time_diff.to_i.abs).utc.strftime("%H:%M:%S")
   end
 

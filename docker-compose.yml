@@ -7,10 +7,27 @@ services:
       context: .
     volumes:
       - ~/.ssh/:/root/.ssh
-      - ./:/home/app/measurinator_website
+      # Can't mount everything because passenger won't start, go figure,..
+      # - ./:/home/app/measurinator_website
+      - ./bin/:/home/app/measurinator_website/bin/
+      - ./config/:/home/app/measurinator_website/config/
+      - ./app/:/home/app/measurinator_website/app/
+      - ./db/:/home/app/measurinator_website/db/
+      - ./lib/:/home/app/measurinator_website/lib/
+      - ./test/:/home/app/measurinator_website/test/
+      - ./public/:/home/app/measurinator_website/public/
+      - ./script/:/home/app/measurinator_website/script/
+      - ./doc/:/home/app/measurinator_website/doc/
+      # Mounting vendor is causing some weird shit
+      # - ./vendor/:/home/app/measurinator_website/vendor/
+      - ./log/:/home/app/measurinator_website/log/
+      - ./tmp/:/home/app/measurinator_website/tmp/
+      - ./.bundle/:/home/app/measurinator_website/.bundle
+      - ./.sass-cache/:/home/app/measurinator_website/.sass-cache
+      - ./Gemfile:/home/app/measurinator_website/Gemfile
+      - ./Gemfile.lock:/home/app/measurinator_website/Gemfile.lock
     ports:
-      - "3000:3000"
-    command: bash
+      - "3000:80"
     environment:
       RAILS_ENV: "development"
       DB_HOSTS: "docker.for.mac.localhost"

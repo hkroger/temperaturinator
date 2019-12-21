@@ -1,9 +1,12 @@
-FROM phusion/passenger-ruby21:latest
+FROM phusion/passenger-ruby23:latest
 MAINTAINER Hannu "hkroger@gmail.com"
 
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get -y install apt-utils
-RUN apt-get -y install sudo autoconf automake pkg-config libtool
+RUN apt-get -y install sudo autoconf automake pkg-config libtool tzdata
+
+ENV TZ=Europe/Helsinki
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV HOME /root  
 ENV RAILS_ENV production
@@ -31,6 +34,7 @@ ADD config /home/app/measurinator_website/config
 ADD app /home/app/measurinator_website/app
 ADD db /home/app/measurinator_website/db
 ADD lib /home/app/measurinator_website/lib
+ADD test /home/app/measurinator_website/test
 ADD public /home/app/measurinator_website/public
 ADD script /home/app/measurinator_website/script
 ADD vendor /home/app/measurinator_website/vendor
@@ -45,4 +49,3 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD nginx.conf /etc/nginx/sites-enabled/measurinator.conf
 ADD nginx-env.conf /etc/nginx/main.d/measurinator-env.conf
-ADD Capfile /home/app/measurinator_website/

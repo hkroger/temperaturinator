@@ -20,10 +20,6 @@ gem 'haml'
 gem 'pry'
 gem 'font-awesome-sass'
 
-gem "capistrano", '~>3.4.0'
-gem "capistrano-rails"
-gem "capistrano-bundler"
-gem "capistrano-scm-copy", github: "hkroger/capistrano-scm-copy"
 gem 'highline'
 
 # Gems used only for assets and not required
@@ -47,14 +43,8 @@ gem 'jquery-ui-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
 gem 'therubyracer'
 #gem 'libv8', '~>3.16.14.15'
-gem 'rbnacl'
-gem 'rbnacl-libsodium'
-gem 'bcrypt_pbkdf'
-
 
 # To use debugger
 # gem 'debugger'
