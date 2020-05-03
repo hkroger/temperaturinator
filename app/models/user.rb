@@ -131,7 +131,8 @@ class User < CassandraModel
     @persisted = true
   end
 
-  def update
+  def update(params={}, *options)
+    assign_attributes(params)
     fix_client_id
     value_map = map_attributes
     sets = value_map.keys.select{ |k| k != 'username'}.map{ |k| k + "=" + value_map[k] }.join(",")
